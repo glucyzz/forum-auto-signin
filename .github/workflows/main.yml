@@ -1,0 +1,38 @@
+name: Forum Auto Sign-in (Python)
+
+  on:
+    schedule:
+      - cron: '0 0 * * *' # Runs every day at 00:00 UTC
+    workflow_dispatch: # Allows manual triggering
+
+jobs:
+  signin:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x' # Or your preferred Python version, e.g., '3.9'
+
+      - name: Install dependencies
+        working-directory: forum-auto-signin
+        run: pip install -r requirements.txt
+
+      - name: Run Sign-in Script
+        working-directory: forum-auto-signin
+        run: python main.py
+        env:
+          FORUM_URL: ${{ secrets.FORUM_URL }}
+          FORUM_USERNAME: ${{ secrets.FORUM_USERNAME }}
+          FORUM_PASSWORD: ${{ secrets.FORUM_PASSWORD }}
+          FORUM_COOKIES: ${{ secrets.FORUM_COOKIES }}
+          USERNAME_SELECTOR: ${{ secrets.USERNAME_SELECTOR }}
+          PASSWORD_SELECTOR: ${{ secrets.PASSWORD_SELECTOR }}
+          LOGIN_BUTTON_SELECTOR: ${{ secrets.LOGIN_BUTTON_SELECTOR }}
+          SIGN_ICON_XPATH: ${{ secrets.SIGN_ICON_XPATH }}
+          LUCKY_BUTTON_XPATH: ${{ secrets.LUCKY_BUTTON_XPATH }}
+          CHICKEN_BUTTON_XPATH: ${{ secrets.CHICKEN_BUTTON_XPATH }}
+          NS_RANDOM: ${{ secrets.NS_RANDOM }}
