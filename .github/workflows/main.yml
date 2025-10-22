@@ -5,17 +5,17 @@ name: Forum Auto Sign-in (Python)
       - cron: '0 0 * * *' # Runs every day at 00:00 UTC
     workflow_dispatch: # Allows manual triggering
 
-  jobs:
-    signin:
-      runs-on: ubuntu-latest
-      steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+jobs:
+  signin:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x' # Or your preferred Python version, e.g., '3.9'
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x' # Or your preferred Python version, e.g., '3.9'
 
       - name: Install dependencies
         working-directory: forum-auto-signin
